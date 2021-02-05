@@ -2,8 +2,6 @@
  * Methods available on Steam Web Api
  */
 type tSteamWebApiMethods =
-  | 'ISteamNews/GetNewsForApp/v0002'
-  | 'ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002'
   | 'ISteamUser/GetPlayerSummaries/v0002'
   | 'ISteamUser/GetFriendList/v0001'
   | 'ISteamUserStats/GetPlayerAchievements/v0001'

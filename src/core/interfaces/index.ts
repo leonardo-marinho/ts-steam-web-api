@@ -1,5 +1,3 @@
-import iPlayerSummariesV2 from '@/core/interfaces/iPlayerSummariesV2';
-import iSteamWebApiFetcherResponse from '@/core/interfaces/iSteamWebApiFetcherResponse';
-import iSteamWebApiOptions from '@/core/interfaces/iSteamWebApiOptions';
+import * as iSteamWebApi from '@/core/interfaces/SteamWebApi';
 
-export { iPlayerSummariesV2, iSteamWebApiFetcherResponse, iSteamWebApiOptions };
+export { iSteamWebApi };

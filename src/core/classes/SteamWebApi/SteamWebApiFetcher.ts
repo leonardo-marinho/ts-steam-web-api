@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {
   iSteamWebApiFetcherResponse,
-  iSteamWebApiOptions
-} from '@/core/interfaces';
+  iSteamWebApiOptions,
+} from '@/core/interfaces/SteamWebApi';
 import { tSteamWebApiMethods } from '@/core/types';
 
 /**
@@ -13,21 +13,37 @@ class SteamWebApiFetcher {
   /**
    * Url da Steam Web Api
    */
-  private STEAM_WEB_API_URL = 'http://api.steampowered.com';
+  private readonly STEAM_WEB_API_URL = 'http://api.steampowered.com';
 
   /**
-   * Proxy
+   * Cors Anywhere Proxy
+   * A service from https://cors-anywhere.herokuapp.com/
    */
-  proxy = '';
+  private readonly CORS_ANYWHERE_PROXY_URL: string =
+    'https://cors-anywhere.herokuapp.com/';
+
+  private apiKey: string;
+
+  /**
+   * Use the proxy flag
+   */
+  public useCorsAnywhereProxy = false;
+
+  /**
+   * Class constructor
+   *
+   * @param apiKey Steam Web Api secret key
+   */
+  constructor(apiKey: string) {
+    this.apiKey = apiKey;
+  }
 
   /**
    * Convert iSteamWebApiOptions type to Steam web api url query string
    * @param options Steam Web Api request query parameters
    */
-  convertOptionsToQuery(options: iSteamWebApiOptions): string {
-    return Object.entries(options)
-      .join('&')
-      .replace(new RegExp(',', 'g'), '=');
+  private convertOptionsToQuery(options: iSteamWebApiOptions): string {
+    return Object.entries(options).join('&').replace(new RegExp(',', 'g'), '=');
   }
 
   /**
@@ -36,26 +52,35 @@ class SteamWebApiFetcher {
    * @param method Methods available on Steam Web Api (https://developer.valvesoftware.com/wiki/Steam_Web_API#Interfaces_and_method)
    * @param options Steam Web Api request query parameters
    */
-  async fetch<T>(
+  public async fetch<T>(
     method: tSteamWebApiMethods,
     options: iSteamWebApiOptions
   ): Promise<iSteamWebApiFetcherResponse<T>> {
+    options.key = this.apiKey;
     const query = this.convertOptionsToQuery(options);
-    console.log(
-      `URL: ${this.proxy}${this.STEAM_WEB_API_URL}/${method}/?${query}`
-    );
+
+    const url = `${this.STEAM_WEB_API_URL}/${method}/?${query}`;
+
+    console.log(url);
+
     const response = await axios.get(
-      `${this.proxy}${this.STEAM_WEB_API_URL}/${method}/?${query}`
+      this.useCorsAnywhereProxy
+        ? `${this.CORS_ANYWHERE_PROXY_URL}/${url}`
+        : `${url}`
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const status = response.status;
 
     return {
       status: status,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      body: status === 200 ? (response.data.response.players as T) : ({} as T),
-      query: query
+      useCorsAnywhereProxy: this.useCorsAnywhereProxy,
+      url: url,
+      query: query,
+      body:
+        status === 200
+          ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            (response.data as T)
+          : ({} as T),
     };
   }
 }
