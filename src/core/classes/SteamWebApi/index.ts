@@ -1,4 +1,3 @@
-import SteamWebApiData from '@/core/classes/SteamWebApi/SteamWebApiData';
-import SteamWebApiFetcher from '@/core/classes/SteamWebApi/SteamWebApiFetcher';
+import Fetcher from '@/core/classes/SteamWebApi/Fetcher';
 
-export { SteamWebApiData as Data, SteamWebApiFetcher as Fetcher };
+export { Fetcher };

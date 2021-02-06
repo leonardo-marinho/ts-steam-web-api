@@ -1,14 +1,11 @@
-import axios from 'axios';
-import {
-  iSteamWebApiFetcherResponse,
-  iSteamWebApiOptions,
-} from '@/core/interfaces/SteamWebApi';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { iSteamWebApiOptions } from '@/core/interfaces/SteamWebApi';
 import { tSteamWebApiMethods } from '@/core/types';
 
 /**
  * Steam Web Api data fetcher
  */
-class SteamWebApiFetcher {
+class Fetcher {
   /**
    * Url da Steam Web Api
    */
@@ -39,6 +36,7 @@ class SteamWebApiFetcher {
 
   /**
    * Convert iSteamWebApiOptions type to Steam web api url query string
+   *
    * @param options Steam Web Api request query parameters
    */
   private convertOptionsToQuery(options: iSteamWebApiOptions): string {
@@ -54,43 +52,36 @@ class SteamWebApiFetcher {
   public async fetch<T>(
     method: tSteamWebApiMethods,
     options: iSteamWebApiOptions
-  ): Promise<iSteamWebApiFetcherResponse<T>> {
-    options.key = this.apiKey;
-    const query = this.convertOptionsToQuery(options);
-
-    const url = `${this.STEAM_WEB_API_URL}/${method}/?${query}`;
-
-    let response, status;
+  ): Promise<AxiosResponse<T>> {
+    let response: AxiosResponse<T>;
 
     await axios
-      .get(
-        this.useCorsAnywhereProxy
-          ? `${this.CORS_ANYWHERE_PROXY_URL}/${url}`
-          : `${url}`
-      )
-      .then((data) => {
+      .get(this.parseUrl(method, options))
+      .then((data: AxiosResponse<T>) => {
         response = data;
-        status = data.status;
       })
-      .catch((err) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        response = err;
-        status = err.response.status;
+      .catch((err: AxiosError<T>) => {
+        response = err.response;
       });
 
-    // const status = response.status;
-    return {
-      status: status,
-      useCorsAnywhereProxy: this.useCorsAnywhereProxy,
-      url: url,
-      query: query,
-      body:
-        status === 200
-          ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            (response.data as T)
-          : ({} as T),
-    };
+    return response;
+  }
+
+  /**
+   * Parse steam web api url
+   *
+   * @param method Methods available on Steam Web Api (https://developer.valvesoftware.com/wiki/Steam_Web_API#Interfaces_and_method)
+   * @param options Steam Web Api request query parameters
+   */
+  private parseUrl(
+    method: tSteamWebApiMethods,
+    options: iSteamWebApiOptions
+  ): string {
+    options.key = this.apiKey;
+    return `${this.STEAM_WEB_API_URL}/${method}/?${this.convertOptionsToQuery(
+      options
+    )}`;
   }
 }
 
-export default SteamWebApiFetcher;
+export default Fetcher;

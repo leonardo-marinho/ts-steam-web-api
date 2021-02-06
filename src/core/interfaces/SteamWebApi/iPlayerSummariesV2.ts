@@ -7,23 +7,23 @@ import { tSteam64Id } from '@/core/types';
 export default interface iPlayerSummariesV2 {
   response: {
     players: Array<{
-      steamid?: tSteam64Id;
-      communityvisibilitystate?: string;
-      profilestate?: string;
-      personaname?: string;
-      profileurl?: string;
-      avatar?: string;
-      avatarmedium?: string;
-      avatarfull?: string;
-      avatarhash?: string;
-      personastate?: string;
-      realname?: string;
-      primaryclanid?: string;
-      timecreated?: string;
-      personastateflags?: string;
-      loccountrycode?: string;
-      locstatecode?: string;
-      loccityid?: string;
+      steamid: tSteam64Id;
+      communityvisibilitystate: string;
+      profilestate: string;
+      personaname: string;
+      profileurl: string;
+      avatar: string;
+      avatarmedium: string;
+      avatarfull: string;
+      avatarhash: string;
+      personastate: string;
+      realname: string;
+      primaryclanid: string;
+      timecreated: string;
+      personastateflags: string;
+      loccountrycode: string;
+      locstatecode: string;
+      loccityid: string;
     }>;
   };
 }
