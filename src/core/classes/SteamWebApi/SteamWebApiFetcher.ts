@@ -6,8 +6,7 @@ import {
 import { tSteamWebApiMethods } from '@/core/types';
 
 /**
- * Steam's player summaries version 2
- * Steam Documentation: https://developer.valvesoftware.com/wiki/Steam_Web_API#GetPlayerSummaries_.28v0002.29
+ * Steam Web Api data fetcher
  */
 class SteamWebApiFetcher {
   /**
@@ -61,16 +60,25 @@ class SteamWebApiFetcher {
 
     const url = `${this.STEAM_WEB_API_URL}/${method}/?${query}`;
 
-    console.log(url);
+    let response, status;
 
-    const response = await axios.get(
-      this.useCorsAnywhereProxy
-        ? `${this.CORS_ANYWHERE_PROXY_URL}/${url}`
-        : `${url}`
-    );
+    await axios
+      .get(
+        this.useCorsAnywhereProxy
+          ? `${this.CORS_ANYWHERE_PROXY_URL}/${url}`
+          : `${url}`
+      )
+      .then((data) => {
+        response = data;
+        status = data.status;
+      })
+      .catch((err) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        response = err;
+        status = err.response.status;
+      });
 
-    const status = response.status;
-
+    // const status = response.status;
     return {
       status: status,
       useCorsAnywhereProxy: this.useCorsAnywhereProxy,
