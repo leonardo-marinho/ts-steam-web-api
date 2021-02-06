@@ -1,7 +1,7 @@
 import SteamWebApiFetcher from '../src/core/classes/SteamWebApi/SteamWebApiFetcher';
 import { iSteamWebApi } from '@/core/interfaces';
 
-const key = 'FBD7FBEFA49EDA350FF07987F43B919C';
+const key = 'KEY';
 const fetcher = new SteamWebApiFetcher(key);
 fetcher.useCorsAnywhereProxy = false;
 
