@@ -2,13 +2,9 @@ import dotenv from 'dotenv';
 import SteamWebApiFetcher from '../src/core/classes/SteamWebApi/Fetcher';
 import { iSteamWebApi } from '@/core/interfaces';
 
-<<<<<<< HEAD
 dotenv.config();
-
 const key = process.env.STEAM_WEB_API_KEY;
-=======
-const key = 'KEY';
->>>>>>> be7aaf2b981036dded75845d8fc505a83e7596eb
+
 const fetcher = new SteamWebApiFetcher(key);
 fetcher.useCorsAnywhereProxy = false;
 
