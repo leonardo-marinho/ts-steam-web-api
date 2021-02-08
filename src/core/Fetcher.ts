@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { iSteamWebApiOptions } from '@/core/interfaces/SteamWebApi';
+import { iSteamWebApiOptions } from '@/core/interfaces';
 import { tSteamWebApiMethods } from '@/core/types';
 
 /**
@@ -18,6 +18,9 @@ class Fetcher {
   private readonly CORS_ANYWHERE_PROXY_URL: string =
     'https://cors-anywhere.herokuapp.com/';
 
+  /**
+   * Private user steam web api key
+   */
   private apiKey: string;
 
   /**
@@ -46,7 +49,7 @@ class Fetcher {
   /**
    * Fetch json from Steam web api
    *
-   * @param method Methods available on Steam Web Api (https://developer.valvesoftware.com/wiki/Steam_Web_API#Interfaces_and_method)
+   * @param method Methods available on Steam Web Api (https://developer.valvesoftware.com/wiki/Steam_Web_API#Interfaces_and_method)]
    * @param options Steam Web Api request query parameters
    */
   public async fetch<T>(

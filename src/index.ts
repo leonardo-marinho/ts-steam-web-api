@@ -1,8 +1,5 @@
-// Classes
-import * as Classes from '@/core/classes';
-// Interfaces
+import Fetcher from '@/core/Fetcher';
 import * as Interfaces from '@/core/interfaces';
-// Types
 import * as Types from '@/core/types';
 
-export { Classes, Interfaces, Types };
+export { Fetcher, Interfaces, Types };

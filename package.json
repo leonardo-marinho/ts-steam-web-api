@@ -1,7 +1,7 @@
 {
-  "name": "gmod-engine",
-  "version": "1.0.0",
-  "description": "My webpack project",
+  "name": "steam-web-api-ts",
+  "version": "0.5.2",
+  "description": "A Steam Web API written in typescript with CORS anywhere support",
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register ./src/index.ts",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Teddocs/gmod-ls-engine.git"
+    "url": "git+https://github.com/dev-marinho/steam-web-api-ts.git"
   },
   "author": "Teddocs",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Teddocs/gmod-ls-engine/issues"
+    "url": "https://github.com/dev-marinho/steam-web-api-ts/issues"
   },
-  "homepage": "https://github.com/Teddocs/gmod-ls-engine#readme",
+  "homepage": "https://github.com/dev-marinho/steam-web-api-ts#readme",
   "devDependencies": {
     "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
