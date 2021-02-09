@@ -7,7 +7,7 @@ import { tSteamWebApiMethods } from '@/types';
  */
 class Fetcher {
   /**
-   * Url da Steam Web Api
+   * Steam Web Api Url
    */
   private readonly STEAM_WEB_API_URL = 'http://api.steampowered.com';
 
