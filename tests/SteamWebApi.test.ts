@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 import dotenv from 'dotenv';
-import SteamWebApiFetcher from '../src/core/Fetcher';
-import * as iSteamWebApi from '@/core/interfaces';
-import { tSteam64Id } from '@/core/types';
+import SteamWebApiFetcher from '../src/Fetcher';
+import * as iSteamWebApi from '@/interfaces';
+import { tSteam64Id } from '@/types';
 
 dotenv.config();
 const key = process.env.STEAM_WEB_API_KEY;

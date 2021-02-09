@@ -2,13 +2,14 @@
   "name": "steam-web-api-ts",
   "version": "0.5.2",
   "description": "A Steam Web API written in typescript with CORS anywhere support",
-  "main": "src/index.ts",
+  "main": "dist/index.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register ./src/index.ts",
+    "start": "ts-node -r tsconfig-paths/register ./index.ts",
     "dev": "nodemon",
     "build": "npm run clean && tsc && ef-tspm",
-    "clean": "rimraf ./build",
-    "docs": "npx typedoc src/index.ts",
+    "clean": "rimraf ./dist",
+    "docs": "npx typedoc index.ts",
     "test": "jest"
   },
   "repository": {

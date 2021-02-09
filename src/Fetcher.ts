@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { iSteamWebApiOptions } from '@/core/interfaces';
-import { tSteamWebApiMethods } from '@/core/types';
+import { iSteamWebApiOptions } from '@/interfaces';
+import { tSteamWebApiMethods } from '@/types';
 
 /**
  * Steam Web Api data fetcher
@@ -81,9 +81,9 @@ class Fetcher {
     options: iSteamWebApiOptions
   ): string {
     options.key = this.apiKey;
-    return `${this.STEAM_WEB_API_URL}/${method}/?${this.convertOptionsToQuery(
-      options
-    )}`;
+    return `${this.useCorsAnywhereProxy ? this.CORS_ANYWHERE_PROXY_URL : ''}${
+      this.STEAM_WEB_API_URL
+    }/${method}/?${this.convertOptionsToQuery(options)}`;
   }
 }
 

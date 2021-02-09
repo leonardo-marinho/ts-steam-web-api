@@ -1,4 +1,4 @@
-import { tSteam64Id } from '@/core/types';
+import { tSteam64Id } from '@/types';
 
 /**
  * Steam Web Api request query parameters

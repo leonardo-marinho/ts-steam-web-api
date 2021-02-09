@@ -1,4 +1,4 @@
-import { tSteam64Id } from '@/core/types';
+import { tSteam64Id } from '@/types';
 
 /**
  * PlayerSummariesV2 method properties interface
