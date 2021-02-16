@@ -5,14 +5,13 @@ import * as iSteamWebApi from '@/interfaces';
 import { tSteam64Id } from '@/types';
 
 dotenv.config();
-const key = process.env.STEAM_WEB_API_KEY;
 
+const key = process.env.STEAM_WEB_API_KEY;
+const fetcher = new SteamWebApiFetcher(key);
+const proxy = 'https://cors-anywhere.herokuapp.com/'; // Exemple CORS Proxy
 const steam_id: tSteam64Id = '76561198066950386';
 
-const fetcher = new SteamWebApiFetcher(key);
-fetcher.useCorsAnywhereProxy = false;
-
-test('Fetch players summaries', async () => {
+test('Test Steam Web API Key', async () => {
   const response = await fetcher.fetch<iSteamWebApi.iPlayerSummariesV2>(
     'ISteamUser/GetPlayerSummaries/v0002',
     {
@@ -20,6 +19,30 @@ test('Fetch players summaries', async () => {
     }
   );
 
+  expect(response.status).toBe(200);
+});
+
+test('Steam Web API Key', async () => {
+  const response = await fetcher.fetch<iSteamWebApi.iPlayerSummariesV2>(
+    'ISteamUser/GetPlayerSummaries/v0002',
+    {
+      steamids: [steam_id],
+    }
+  );
+  expect(response.status).toBe(200);
+});
+
+test('CORS Proxy', async () => {
+  fetcher.proxy = proxy;
+  const response = await fetcher.fetch<iSteamWebApi.iPlayerSummariesV2>(
+    'ISteamUser/GetPlayerSummaries/v0002',
+    {
+      steamids: [steam_id],
+    }
+  );
+
+  expect(fetcher.proxy).not.toBeUndefined();
+  expect(fetcher.proxy).not.toBe('');
   expect(response.status).toBe(200);
 });
 
@@ -86,14 +109,14 @@ test('Fetch player recently played games', async () => {
 test('Fetch with callback', async () => {
   let response: AxiosResponse<iSteamWebApi.iPlayerSummariesV2>;
 
-  await fetcher.fetch<iSteamWebApi.iPlayerSummariesV2>(
-    'ISteamUser/GetPlayerSummaries/v0002',
-    {
-      steamids: ['76561198066950'],
-    },
-  ).then(
-    (res) => (response = res));
-
+  await fetcher
+    .fetch<iSteamWebApi.iPlayerSummariesV2>(
+      'ISteamUser/GetPlayerSummaries/v0002',
+      {
+        steamids: ['76561198066950'],
+      }
+    )
+    .then((res) => (response = res));
 
   expect(response.status).toBe(200);
 });
@@ -110,7 +133,6 @@ test('Fetch players summaries with missing query options', async () => {
 test('Fetch players summaries with wrong key', async () => {
   const key_wrong = 'some_wrong_key';
   const fetcher_wrong = new SteamWebApiFetcher(key_wrong);
-  fetcher.useCorsAnywhereProxy = false;
 
   const response = await fetcher_wrong.fetch<iSteamWebApi.iPlayerSummariesV2>(
     'ISteamUser/GetPlayerSummaries/v0002',
