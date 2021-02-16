@@ -8,7 +8,7 @@ dotenv.config();
 
 const key = process.env.STEAM_WEB_API_KEY;
 const fetcher = new SteamWebApiFetcher(key);
-const proxy = 'https://cors-anywhere.herokuapp.com/';
+const proxy = 'https://cors-anywhere.herokuapp.com/'; // Exemple CORS Proxy
 const steam_id: tSteam64Id = '76561198066950386';
 
 test('Test Steam Web API Key', async () => {
@@ -29,7 +29,6 @@ test('Steam Web API Key', async () => {
       steamids: [steam_id],
     }
   );
-
   expect(response.status).toBe(200);
 });
 
@@ -42,6 +41,8 @@ test('CORS Proxy', async () => {
     }
   );
 
+  expect(fetcher.proxy).not.toBeUndefined();
+  expect(fetcher.proxy).not.toBe('');
   expect(response.status).toBe(200);
 });
 
