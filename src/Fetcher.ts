@@ -12,21 +12,14 @@ class Fetcher {
   private readonly STEAM_WEB_API_URL = 'http://api.steampowered.com';
 
   /**
-   * Cors Anywhere Proxy
-   * A service from https://cors-anywhere.herokuapp.com/
-   */
-  private readonly CORS_ANYWHERE_PROXY_URL: string =
-    'https://cors-anywhere.herokuapp.com/';
-
-  /**
    * Private user steam web api key
    */
   private apiKey: string;
 
   /**
-   * Use the proxy flag
+   * CORS Proxy
    */
-  public useCorsAnywhereProxy = false;
+  public proxy = '';
 
   /**
    * Class constructor
@@ -58,6 +51,8 @@ class Fetcher {
   ): Promise<AxiosResponse<T>> {
     let response: AxiosResponse<T>;
 
+    console.log(this.parseUrl(method, options));
+
     await axios
       .get(this.parseUrl(method, options))
       .then((data: AxiosResponse<T>) => {
@@ -81,7 +76,7 @@ class Fetcher {
     options: iSteamWebApiOptions
   ): string {
     options.key = this.apiKey;
-    return `${this.useCorsAnywhereProxy ? this.CORS_ANYWHERE_PROXY_URL : ''}${
+    return `${this.proxy}${
       this.STEAM_WEB_API_URL
     }/${method}/?${this.convertOptionsToQuery(options)}`;
   }
