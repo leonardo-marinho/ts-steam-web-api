@@ -1,6 +1,6 @@
 {
   "name": "steam-web-api-ts",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "A Steam Web API written in typescript with CORS anywhere support",
   "main": "dist/index.ts",
   "types": "dist/index.d.ts",
