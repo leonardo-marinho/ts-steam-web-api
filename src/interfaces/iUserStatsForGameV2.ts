@@ -1,5 +1,3 @@
-import { tSteam64Id } from '@/types';
-
 /**
  * UserStatsForGame method properties interface
  * https://developer.valvesoftware.com/wiki/Steam_Web_API#GetUserStatsForGame_.28v0002.29
@@ -7,7 +5,7 @@ import { tSteam64Id } from '@/types';
  */
 export default interface iUserStatsForGameV2 {
   playerstats: {
-    steamID: tSteam64Id;
+    steamID: string;
     gameName: string;
     stats: Array<{
       name: string;

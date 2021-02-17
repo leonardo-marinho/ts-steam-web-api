@@ -2,14 +2,13 @@ import { AxiosResponse } from 'axios';
 import dotenv from 'dotenv';
 import SteamWebApiFetcher from '../src/Fetcher';
 import * as iSteamWebApi from '@/interfaces';
-import { tSteam64Id } from '@/types';
 
 dotenv.config();
 
 const key = process.env.STEAM_WEB_API_KEY;
 const fetcher = new SteamWebApiFetcher(key);
-const proxy = 'https://cors-anywhere.herokuapp.com/'; // Exemple CORS Proxy
-const steam_id: tSteam64Id = '76561198066950386';
+fetcher.proxy = ''; // Exemple CORS Proxy
+const steam_id = '76561198066950386';
 
 test('Test Steam Web API Key', async () => {
   const response = await fetcher.fetch<iSteamWebApi.iPlayerSummariesV2>(
@@ -29,20 +28,6 @@ test('Steam Web API Key', async () => {
       steamids: [steam_id],
     }
   );
-  expect(response.status).toBe(200);
-});
-
-test('CORS Proxy', async () => {
-  fetcher.proxy = proxy;
-  const response = await fetcher.fetch<iSteamWebApi.iPlayerSummariesV2>(
-    'ISteamUser/GetPlayerSummaries/v0002',
-    {
-      steamids: [steam_id],
-    }
-  );
-
-  expect(fetcher.proxy).not.toBeUndefined();
-  expect(fetcher.proxy).not.toBe('');
   expect(response.status).toBe(200);
 });
 

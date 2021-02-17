@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { iSteamWebApiOptions } from '@/interfaces';
 import { tSteamWebApiMethods } from '@/types';
 
@@ -49,12 +49,12 @@ class Fetcher {
     method: tSteamWebApiMethods,
     options: iSteamWebApiOptions
   ): Promise<AxiosResponse<T>> {
+    // Return object
     let response: AxiosResponse<T>;
 
-    console.log(this.parseUrl(method, options));
-
+    // Data request
     await axios
-      .get(this.parseUrl(method, options))
+      .get(`${method}`, this.resolveRequestConfig(options))
       .then((data: AxiosResponse<T>) => {
         response = data;
       })
@@ -71,14 +71,25 @@ class Fetcher {
    * @param method Methods available on Steam Web Api (https://developer.valvesoftware.com/wiki/Steam_Web_API#Interfaces_and_method)
    * @param options Steam Web Api request query parameters
    */
-  private parseUrl(
-    method: tSteamWebApiMethods,
+  private resolveRequestConfig(
     options: iSteamWebApiOptions
-  ): string {
+  ): AxiosRequestConfig {
+    // AxiosRequestConfig object
+    const requestConfig: AxiosRequestConfig = {};
+
+    // Pass key as iSteamWebApiOptions option
     options.key = this.apiKey;
-    return `${this.proxy}${
-      this.STEAM_WEB_API_URL
-    }/${method}/?${this.convertOptionsToQuery(options)}`;
+
+    // Cors proxy
+    requestConfig.baseURL =
+      this.proxy.length > 0
+        ? `${this.proxy}${this.STEAM_WEB_API_URL}`
+        : this.STEAM_WEB_API_URL;
+
+    // Creating axios params
+    requestConfig.params = new URLSearchParams(Object.entries(options));
+
+    return requestConfig;
   }
 }
 

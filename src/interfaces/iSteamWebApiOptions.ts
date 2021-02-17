@@ -1,5 +1,3 @@
-import { tSteam64Id } from '@/types';
-
 /**
  * Steam Web Api request query parameters
  */
@@ -49,11 +47,11 @@ export default interface iSteamWebApiOption {
   /**
    * 64 bit Steam ID of player
    */
-  steamid?: tSteam64Id;
+  steamid?: string;
 
   /**
    * Array of 64 bit Steam ID of player
    * Exclusive to method PlayerSummaries
    */
-  steamids?: Array<tSteam64Id>;
+  steamids?: Array<string>;
 }

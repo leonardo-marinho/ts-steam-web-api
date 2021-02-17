@@ -1,5 +1,3 @@
-import { tSteam64Id } from '@/types';
-
 /**
  * PlayerAchievements method properties interface
  * https://developer.valvesoftware.com/wiki/Steam_Web_API#GetPlayerAchievements_.28v0001.29
@@ -7,7 +5,7 @@ import { tSteam64Id } from '@/types';
  */
 export default interface iPlayerAchievementsV1 {
   playerstats: {
-    steamID: tSteam64Id;
+    steamID: string;
     gameName: string;
     achievements: Array<{
       apiname: string;
