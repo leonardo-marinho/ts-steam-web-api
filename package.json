@@ -1,6 +1,6 @@
 {
   "name": "steam-web-api-ts",
-  "version": "0.5.4",
+  "version": "0.6.1",
   "description": "A Steam Web API written in typescript with CORS anywhere support",
   "main": "dist/index.ts",
   "types": "dist/index.d.ts",
@@ -28,6 +28,7 @@
     "@babel/preset-typescript": "^7.12.13",
     "@ef-carbon/tspm": "^2.2.5",
     "@types/jest": "^26.0.20",
+    "@types/long": "^4.0.1",
     "@types/node": "^14.14.22",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
@@ -42,6 +43,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "fs": "0.0.1-security",
     "jest": "^26.6.3",
+    "jest-benchmarks": "^0.2.1",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.0",
@@ -55,6 +57,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "long": "^4.0.0"
   }
 }
