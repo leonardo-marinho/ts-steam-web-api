@@ -1,33 +1,39 @@
 {
-  "name": "gmod-engine",
-  "version": "1.0.0",
-  "description": "My webpack project",
-  "main": "src/index.ts",
+  "name": "steam-web-api-ts",
+  "version": "0.6.1",
+  "description": "A Steam Web API written in typescript with CORS anywhere support",
+  "main": "dist/index.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register ./src/index.ts",
+    "start": "ts-node -r tsconfig-paths/register ./index.ts",
     "dev": "nodemon",
     "build": "npm run clean && tsc && ef-tspm",
-    "clean": "rimraf ./build",
-    "docs": "npx typedoc src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf ./dist",
+    "docs": "npx typedoc index.ts",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Teddocs/gmod-ls-engine.git"
+    "url": "git+https://github.com/dev-marinho/steam-web-api-ts.git"
   },
   "author": "Teddocs",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Teddocs/gmod-ls-engine/issues"
+    "url": "https://github.com/dev-marinho/steam-web-api-ts/issues"
   },
-  "homepage": "https://github.com/Teddocs/gmod-ls-engine#readme",
+  "homepage": "https://github.com/dev-marinho/steam-web-api-ts#readme",
   "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-typescript": "^7.12.13",
     "@ef-carbon/tspm": "^2.2.5",
     "@types/jest": "^26.0.20",
+    "@types/long": "^4.0.1",
     "@types/node": "^14.14.22",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "@webpack-cli/init": "^1.1.2",
+    "babel-jest": "^26.6.3",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "eslint": "^7.19.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -37,8 +43,10 @@
     "eslint-plugin-prettier": "^3.3.1",
     "fs": "0.0.1-security",
     "jest": "^26.6.3",
+    "jest-benchmarks": "^0.2.1",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
+    "ts-jest": "^26.5.0",
     "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
     "tsc": "^1.20150623.0",
@@ -48,6 +56,8 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
+    "long": "^4.0.0"
   }
 }
